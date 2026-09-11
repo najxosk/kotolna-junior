@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Source Sans 3", ui-monospace, monospace;
+
+  --color-bg: #12151b;
+  --color-surface: #1b212a;
+  --color-raised: #242c37;
+  --color-inset: #141920;
+  --color-fg: #ebe6db;
+  --color-muted: #9aa3ad;
+  --color-faint: #6d7680;
+  --color-border: #323b48;
+  --color-line: #2a3340;
+  --color-accent: #2f9e8f;
+  --color-accent-fg: #071412;
+  --color-ok: #3d9a6a;
+  --color-ok-fg: #072014;
+  --color-warn: #c4892a;
+  --color-warn-fg: #1f1506;
+  --color-alarm: #c44c3a;
+  --color-alarm-fg: #2a0c08;
+  --color-water: #3a7ca5;
+  --color-flame: #e07838;
+  --color-paper: #f3eee3;
+  --color-ink: #1a1d22;
+  --color-copper: #b5683a;
+  --color-steel: #8b97a6;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+
+  --shadow-panel: 0 12px 40px rgb(0 0 0 / 0.35);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100dvh;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    overscroll-behavior: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes flame-flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.95;
+  }
+  40% {
+    transform: scaleY(1.08) scaleX(0.94);
+    opacity: 1;
+  }
+  70% {
+    transform: scaleY(0.92) scaleX(1.05);
+    opacity: 0.88;
+  }
+}
+
+@keyframes smoke-rise {
+  0% {
+    transform: translateY(8px);
+    opacity: 0.15;
+  }
+  40% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-28px);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-alarm {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes stamp-in {
+  0% {
+    transform: scale(1.35) rotate(-8deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+}
+
+.flame-anim {
+  transform-origin: 50% 100%;
+  animation: flame-flicker 0.55s ease-in-out infinite;
+}
+
+.smoke-puff {
+  animation: smoke-rise 2.4s ease-out infinite;
+}
+
+.fan-spin {
+  transform-origin: 20px 20px;
+  animation: spin 0.7s linear infinite;
+}
+
+.pump-spin {
+  transform-origin: 12px 12px;
+  animation: spin 1.1s linear infinite;
+}
+
+.alarm-pulse {
+  animation: pulse-alarm 1s ease-in-out infinite;
+}
+
+.stamp-in {
+  animation: stamp-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ctrl-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  margin: 0;
+}
+
+.ctrl-range:focus {
+  outline: none;
+}
+
+.ctrl-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--color-bg), 0 0 0 5px var(--color-accent);
+}
+
+.ctrl-range::-webkit-slider-runnable-track {
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-inset);
+  border: 1px solid var(--color-border);
+}
+
+.ctrl-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  margin-top: -10px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.35);
+}
+
+.ctrl-range::-moz-range-track {
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-inset);
+  border: 1px solid var(--color-border);
+}
+
+.ctrl-range::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.35);
+}
+
+.phone-shell {
+  box-shadow: var(--shadow-panel), inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
