@@ -1,0 +1,16 @@
+# systémové (Windows / macOS)
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# editor a dočasné
+*.log
+*.tmp
+.vscode/
+
+# závislosti a build (keď sa použijú)
+node_modules/
+dist/
+build/
+.env
+.env.local
